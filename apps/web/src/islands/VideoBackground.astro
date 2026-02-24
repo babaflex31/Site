@@ -1,0 +1,64 @@
+---
+/**
+ * VideoBackground Island — handles autoplay, mute-first UX,
+ * and Intersection Observer pause/resume for CPU savings.
+ * client:idle → loads after initial hydration.
+ */
+---
+
+<div class="video-bg-wrapper">
+  <video
+    id="bg-video"
+    class="video-bg"
+    autoplay
+    loop
+    playsinline
+    preload="auto"
+  >
+    <source src="/bg.mp4" type="video/mp4" />
+  </video>
+  <div class="video-overlay"></div>
+</div>
+
+<script>
+  const video = document.getElementById('bg-video') as HTMLVideoElement;
+
+  // Browsers block autoplay with sound. 
+  // We start by trying to play, and unmute on first user click.
+  const handleFirstInteraction = () => {
+    video.muted = false;
+    video.volume = 0.5;
+    video.play().catch(() => {});
+    document.dispatchEvent(new CustomEvent('video:unmuted'));
+    document.removeEventListener('click', handleFirstInteraction);
+  };
+  document.addEventListener('click', handleFirstInteraction);
+
+  // ── Listen for Audio Controls ───────────────────────────
+  document.addEventListener('audio:update', ((e: CustomEvent<{volume: number, muted: boolean}>) => {
+    video.volume = e.detail.volume;
+    video.muted = e.detail.muted;
+  }) as EventListener);
+
+  // Intersection Observer — pause when tab/page not visible
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    },
+    { threshold: 0.1 }
+  );
+  observer.observe(video);
+
+  // Visibility API — pause on tab switch
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      video.pause();
+    } else {
+      video.play().catch(() => {});
+    }
+  });
+</script>

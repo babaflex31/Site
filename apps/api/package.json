@@ -1,0 +1,19 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "wrangler dev",
+        "build": "tsc --noEmit",
+        "typecheck": "tsc --noEmit",
+        "deploy": "wrangler deploy"
+    },
+    "dependencies": {
+        "shared-types": "workspace:*"
+    },
+    "devDependencies": {
+        "@cloudflare/workers-types": "^4.20250214.0",
+        "typescript": "^5.7.3",
+        "wrangler": "^3.105.0"
+    }
+}

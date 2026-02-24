@@ -1,0 +1,49 @@
+---
+import '../styles/global.css';
+
+/**
+ * Base layout — wraps every page.
+ * Injects critical head tags: fonts, preloads, meta, and anti-FOUC theme script.
+ */
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'bulut — Developer',
+  description = 'Personal landing page',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="tr" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Anti-FOUC: apply theme before paint -->
+    <script is:inline>
+      const t = localStorage.getItem('theme') ?? 'dark';
+      document.documentElement.dataset.theme = t;
+    </script>
+
+    <!-- Google Fonts: Inter (body) + JetBrains Mono (code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Fonts preconnect and styles are handled by Astro -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+

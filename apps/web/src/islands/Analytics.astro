@@ -1,0 +1,44 @@
+---
+/**
+ * Analytics Island — sends pageview on load, provides click tracking utility.
+ * Uses Beacon API (non-blocking, survives tab close).
+ * client:idle → loads after page is interactive (doesn't block LCP/TBT).
+ */
+---
+
+<script>
+  const ANALYTICS_ENDPOINT = 'https://api.senin-domain.com/api/track';
+
+  interface TrackPayload {
+    type: 'pageview' | 'click';
+    target?: string;
+    ref?: string;
+    ts: number;
+    tz?: string;
+  }
+
+  function sendBeacon(payload: TrackPayload): void {
+    const blob = new Blob([JSON.stringify(payload)], {
+      type: 'application/json',
+    });
+    navigator.sendBeacon(ANALYTICS_ENDPOINT, blob);
+  }
+
+  // ── Track pageview on load ────────────────────────────────
+  sendBeacon({
+    type: 'pageview',
+    ref: document.referrer?.slice(0, 200) || undefined,
+    ts: Date.now(),
+    tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  });
+
+  // ── Expose click tracker for social links ─────────────────
+  // Social cards dispatch a custom event; we listen here.
+  document.addEventListener('analytics:click', ((e: CustomEvent<string>) => {
+    sendBeacon({
+      type: 'click',
+      target: e.detail,
+      ts: Date.now(),
+    });
+  }) as EventListener);
+</script>

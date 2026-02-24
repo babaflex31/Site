@@ -1,0 +1,22 @@
+{
+    "name": "web",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "typecheck": "astro check && tsc --noEmit",
+        "lint": "eslint src/"
+    },
+    "dependencies": {
+        "astro": "^4.16.18",
+        "shared-types": "workspace:*"
+    },
+    "devDependencies": {
+        "@astrojs/check": "^0.9.4",
+        "lightningcss": "^1.29.1",
+        "typescript": "^5.7.3"
+    }
+}

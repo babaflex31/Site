@@ -1,0 +1,24 @@
+# Cloudflare Pages Custom Headers
+# Applied at edge, no server needed
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/*.mp4
+  Cache-Control: public, max-age=2592000
+  Accept-Ranges: bytes
+
+/avatar.png
+  Cache-Control: public, max-age=2592000
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://api.senin-domain.com; frame-ancestors 'none'

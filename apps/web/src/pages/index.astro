@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import VideoBackground from '../islands/VideoBackground.astro';
+import SocialLinks from '../islands/SocialLinks.astro';
+import Analytics from '../islands/Analytics.astro';
+import ThemeToggle from '../islands/ThemeToggle.astro';
+import AudioControl from '../islands/AudioControl.astro';
+---
+
+<Base title="bulut — Developer" description="C++, C#, Python, Lua developer. Personal landing page.">
+
+  <!-- Theme toggle (hydrates on load) -->
+  <ThemeToggle client:load />
+
+  <!-- Audio controls (hydrates on load) -->
+  <AudioControl client:load />
+
+  <!-- Video background island (hydrates when idle) -->
+  <VideoBackground client:idle />
+
+  <main class="landing-container">
+
+    <!-- Profile -->
+    <section class="profile-section">
+      <img
+        class="avatar animate-in animate-in--d1"
+        src="/avatar.png"
+        alt="bulut avatar"
+        width="128"
+        height="128"
+        loading="eager"
+        decoding="async"
+      />
+      <h1 class="profile-name animate-in animate-in--d2">bulut</h1>
+      <p class="profile-tagline animate-in animate-in--d2">
+        Developer · C++ / C# / Python / Lua
+      </p>
+    </section>
+
+    <!-- Skills badges -->
+    <section class="skills-section animate-in animate-in--d3">
+      <span class="skill-badge skill-badge--cpp">
+        <span class="skill-badge__dot"></span>C++
+      </span>
+      <span class="skill-badge skill-badge--csharp">
+        <span class="skill-badge__dot"></span>C#
+      </span>
+      <span class="skill-badge skill-badge--python">
+        <span class="skill-badge__dot"></span>Python
+      </span>
+      <span class="skill-badge skill-badge--lua">
+        <span class="skill-badge__dot"></span>Lua
+      </span>
+      <span class="skill-badge skill-badge--ts">
+        <span class="skill-badge__dot"></span>TypeScript
+      </span>
+    </section>
+
+    <!-- Social links island (hydrates when visible) -->
+    <SocialLinks />
+
+    <!-- Footer -->
+    <footer class="footer animate-in animate-in--d8">
+      © 2026 bulut
+    </footer>
+
+  </main>
+
+  <!-- Analytics island (hydrates when idle — non-blocking) -->
+  <Analytics />
+</Base>
