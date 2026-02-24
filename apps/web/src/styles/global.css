@@ -217,6 +217,14 @@ video {
   letter-spacing: -0.02em;
 }
 
+.profile-real-name {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: calc(-1 * var(--space-xs));
+  opacity: 0.8;
+}
+
 .profile-tagline {
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
