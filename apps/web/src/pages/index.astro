@@ -10,13 +10,13 @@ import AudioControl from '../islands/AudioControl.astro';
 <Base title="bulut — Developer" description="C++, C#, Python, Lua developer. Personal landing page.">
 
   <!-- Theme toggle (hydrates on load) -->
-  <ThemeToggle client:load />
+  <ThemeToggle />
 
   <!-- Audio controls (hydrates on load) -->
-  <AudioControl client:load />
+  <AudioControl />
 
   <!-- Video background island (hydrates when idle) -->
-  <VideoBackground client:idle />
+  <VideoBackground />
 
   <main class="landing-container">
 

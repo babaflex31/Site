@@ -18,7 +18,7 @@ export default defineConfig({
             // Target modern browsers only
             target: 'es2022',
             // Minimal chunk splitting for a single-page site
-            // cssMinify: 'lightningcss',
+            cssMinify: 'lightningcss',
         },
     },
 });
