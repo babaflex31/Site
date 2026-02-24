@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     // GitHub Pages configuration
     site: 'https://babaflex31.github.io',
-    base: '/Flexlol/',
+    base: '/Site/',
 
     // SSG output — zero runtime server
     output: 'static',
